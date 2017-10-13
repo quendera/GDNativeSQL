@@ -69,18 +69,41 @@ void GDN_EXPORT godot_nativescript_init(void *desc) {
 
 godot_variant GDN_EXPORT sendstring(void *data, godot_array *gd_query) {
 
-       const godot_int idx = 0;
-       godot_variant ret;
-       ret = godot_array_get(gd_query, idx);
-       godot_string gd_string = godot_variant_as_string(&ret);
+godot_variant GDN_EXPORT sendstring(void *data, godot_array *gd_query) {
 
-       char *c_query;
-       int *c_query_length;
-       godot_string_get_data(&gd_string, c_query, c_query_length);
+		const godot_int idx_ip = 1;
+		godot_variant var_ip;
+		var_ip = godot_array_get(gd_query, idx_ip);
+		godot_string gds_ip = godot_variant_as_string(&var_ip);
 
-       MYSQL *my = mysql_init(NULL);
-       mysql_real_connect(my, "your_server_IP", "server_user", "server_pw", "remote_db_name", 0, NULL, 0);
-       mysql_real_query(my, c_query, *c_query_length);
-       mysql_close(my);
-       return ret;
+		const godot_int idx_usr = 2;
+		godot_variant var_usr;
+		var_usr = godot_array_get(gd_query, idx_usr);
+		godot_string gds_usr = godot_variant_as_string(&var_usr);
+
+		const godot_int idx_pwd = 3;
+		godot_variant var_pwd;
+		var_pwd = godot_array_get(gd_query, idx_pwd);
+		godot_string gds_pwd = godot_variant_as_string(&var_pwd);
+
+		const godot_int idx_db = 4;
+		godot_variant var_db;
+		var_db = godot_array_get(gd_query, idx_db);
+		godot_string gds_db = godot_variant_as_string(&var_db);
+
+		const godot_int idx = 0;
+		godot_variant ret;
+		ret = godot_array_get(gd_query, idx);
+		godot_string gd_string = godot_variant_as_string(&ret);
+
+		char *c_query;
+		int *c_query_length;
+		godot_string_get_data(&gd_string, c_query, c_query_length);
+
+		MYSQL *my = mysql_init(NULL);
+		mysql_real_connect(my, "your_server_IP", "server_user", "server_pw", "remote_db_name", 0, NULL, 0);
+		mysql_real_query(my, c_query, *c_query_length);
+		mysql_close(my);
+		return ret;
+	
 }
